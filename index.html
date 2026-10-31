@@ -274,6 +274,88 @@ h1{margin:0;font-size:1.45rem;font-weight:600;text-wrap:balance;line-height:1.2}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:0s!important;transition:none!important}
 }
+
+/* ---- UX polish layer ---- */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-io:cubic-bezier(.77,0,.175,1)}
+html{-webkit-text-size-adjust:100%}
+button,summary,select,input,label{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+body{overscroll-behavior-y:none}
+
+/* Press feedback: everything tappable sinks a little */
+.card,.chip,.btn,.tab,.tok,.lbtn,.fslot,.bub,.playbtn{
+  transition:transform 140ms var(--ease-out),border-color 150ms ease,background-color 150ms ease,color 150ms ease,opacity 250ms ease}
+.card:not(.done):not(.fade):active,.chip:not(:disabled):active,.btn:not(:disabled):active,.tab:active,
+.tok:not(:disabled):active,.lbtn:active,.fslot:not(:disabled):not(.done):active,.bub:not(.draft):active{transform:scale(.97)}
+.playbtn:active{transform:scale(.94)}
+
+/* Hover only on real pointers, so taps on phones don't leave things looking selected */
+@media (hover:none),(pointer:coarse){
+  .card:hover:not(.done){border-color:var(--line)}
+  .card.sel:hover{border-color:var(--jade)}
+  .card.bad:hover{border-color:var(--seal)}
+  .chip:hover{border-color:var(--line)}
+  .chip[aria-pressed="true"]:hover{border-color:var(--ink)}
+  .chip.rev:hover{background:var(--card);border-color:var(--seal)}
+  .lbtn:hover{background:transparent}
+  .lbtn[aria-pressed="true"]:hover{background:var(--ink)}
+  .tok:hover:not(:disabled){border-color:var(--line)}
+  .fslot:hover:not(:disabled){border-color:var(--muted)}
+}
+
+/* Bigger, easier tap targets for chips on touch */
+@media (pointer:coarse){ .chip{padding:6px 13px;min-height:34px} .lbtn{min-height:34px} }
+
+/* Tabs: active pill eases in instead of snapping */
+.tab{transition:transform 140ms var(--ease-out),background-color 200ms var(--ease-out),color 200ms var(--ease-out)}
+
+/* Collapsible settings */
+.more{border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.more summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;user-select:none}
+.more summary::-webkit-details-marker{display:none}
+.more summary:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+.more .mt{font-size:.88rem;font-weight:600;flex:none}
+.more .ms{font-size:.76rem;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.more .chev{width:16px;height:16px;flex:none;color:var(--muted);transition:transform 200ms var(--ease-out)}
+.more[open] .chev{transform:rotate(180deg)}
+.more[open] .ms{visibility:hidden}
+.morebody{display:flex;flex-direction:column;gap:10px;padding:2px 14px 14px;border-top:1px solid var(--line);padding-top:12px}
+.more[open] .morebody{animation:moreIn 200ms var(--ease-out)}
+@keyframes moreIn{from{opacity:0;transform:translateY(-4px)}}
+
+/* Correct-match feedback: a tiny settle instead of only a colour change */
+.card.done{transition:transform 140ms var(--ease-out),opacity 300ms ease,border-color 150ms ease}
+.card.sel{transform:translateY(-1px);box-shadow:0 2px 0 var(--jade)}
+
+/* Result card arrives softly */
+.result:not([hidden]){animation:resIn 260ms var(--ease-out)}
+@keyframes resIn{from{opacity:0;transform:translateY(8px)}}
+
+/* Feedback rows (after answering) slide up a touch */
+.feedback:not([hidden]){animation:fbIn 180ms var(--ease-out)}
+@keyframes fbIn{from{opacity:0;transform:translateY(4px)}}
+
+/* Stats: numbers don't jump width */
+.stat b{transition:color 200ms ease}
+
+/* Phone: tighter header and controls so the board is on the first screen */
+@media (max-width:520px){
+  .wrap{padding-block:12px 40px;gap:12px}
+  .chop{width:44px;height:44px;font-size:13px}
+  h1{font-size:1.25rem}
+  .row .lbl{width:auto;min-width:56px}
+  .morebody .row .lbl{width:100%}
+  .stat{padding:6px 10px}
+  .tabs{gap:2px;padding:3px}
+  .tab{padding:8px 6px;font-size:.88rem}
+}
+@media (display-mode:standalone){ .wrap{padding-top:max(12px,env(safe-area-inset-top))} }
+
+@media (prefers-reduced-motion:reduce){
+  .card,.chip,.btn,.tab,.tok,.lbtn,.fslot,.bub,.playbtn{transition:background-color 150ms ease,border-color 150ms ease,color 150ms ease,opacity 200ms ease}
+  .card:active,.chip:active,.btn:active,.tab:active,.tok:active,.lbtn:active,.fslot:active,.bub:active,.playbtn:active{transform:none!important}
+  .result:not([hidden]),.feedback:not([hidden]),.more[open] .morebody{animation:fade 150ms ease!important}
+  @keyframes fade{from{opacity:0}}
+}
 </style>
 
 <div class="wrap">
@@ -311,12 +393,15 @@ h1{margin:0;font-size:1.45rem;font-weight:600;text-wrap:balance;line-height:1.2}
     <div class="row" id="lvls"><span class="lbl">ระดับ</span></div>
     <div class="row" id="lessonRow" hidden><span class="lbl">บทเรียน</span></div>
     <p class="lessnote" id="lessNote" hidden></p>
-    <div class="row" id="cats"><span class="lbl">หมวดคำ</span></div>
     <div class="row" id="pairs"><span class="lbl">จับคู่</span></div>
     <div class="row" id="lTypeRow" hidden><span class="lbl">แบบฟัง</span></div>
     <div class="row" id="lAnsRow" hidden><span class="lbl">ตอบด้วย</span></div>
     <div class="row" id="crRow" hidden><span class="lbl">บทบาท</span></div>
     <div class="row" id="cRow" hidden><span class="lbl">ตอบเป็น</span></div>
+    <details class="more" id="more">
+    <summary><span class="mt">ตั้งค่าเพิ่มเติม</span><span class="ms">หมวดคำ · ความหมาย · ตัวช่วย · เสียงอ่าน</span><svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+    <div class="morebody">
+    <div class="row" id="cats"><span class="lbl">หมวดคำ</span></div>
     <div class="row" id="modes"><span class="lbl" id="modesLbl">ความหมาย</span></div>
     <div class="row">
       <span class="lbl">ตัวช่วย</span>
@@ -330,6 +415,8 @@ h1{margin:0;font-size:1.45rem;font-weight:600;text-wrap:balance;line-height:1.2}
       <button class="chip" id="vTest">ทดลองฟัง</button>
       <label class="vrate" for="vRate">ความเร็ว <input type="range" id="vRate" min="0.6" max="1.4" step="0.1" value="1"> <span id="vRateVal">1.0x</span></label>
     </div>
+    </div>
+    </details>
     <div class="row" id="revRow">
       <span class="lbl">คลังที่ผิด</span>
       <button class="chip rev" id="revBtn" hidden></button>
@@ -2122,6 +2209,7 @@ try{const s=JSON.parse(localStorage.getItem("hsk1match")||"{}");
   if(["fill","order","fam","listen","conv"].includes(s.game))st.game=s.game; if(s.cm==="w")st.cm="w"; if(s.cr==="ask")st.cr="ask"; if(s.voice&&typeof s.voice==="object")st.voice={zh:s.voice.zh||"",ja:s.voice.ja||"",ko:s.voice.ko||"",yue:s.voice.yue||""}; if(+s.rateMul>=.6&&+s.rateMul<=1.4)st.rateMul=+s.rateMul; if(Array.isArray(s.cSeen))s.cSeen.forEach(i=>st.cSeen.add(i)); if(["w","s","l"].includes(s.lt))st.lt=s.lt; if(s.la==="p"||s.la==="h")st.la=s.la; if([2,3,5,6,7].includes(s.lvl))st.lvl=s.lvl; if(s.lastZh===2||s.lastZh===3)st.lastZh=s.lastZh; if(s.pair==="hp")st.pair="hp"; if(+s.lesson>=1&&+s.lesson<=15)st.lesson=+s.lesson;}catch(e){}
 function save(){try{localStorage.setItem("hsk1match",JSON.stringify({lastZh:st.lastZh,pair:st.pair,lvl:st.lvl,game:st.game,mode:st.mode,han:st.han,sound:st.sound,auto:st.auto,seen:[...st.seen],qSeen:[...st.qSeen],oSeen:[...st.oSeen],fSeen:[...st.fSeen],lesson:st.lesson,lt:st.lt,la:st.la,cm:st.cm,cr:st.cr,voice:st.voice,rateMul:st.rateMul,cSeen:[...st.cSeen]}))}catch(e){}}
 
+function toBoard(){const t=document.querySelector(".tabs");if(!t)return;const y=t.getBoundingClientRect().top+scrollY-8;if(scrollY>y)window.scrollTo({top:y,behavior:"auto"})}
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const norm=p=>p.toLowerCase().replace(/\s/g,"");
 
@@ -2319,7 +2407,7 @@ function onFTree(e){
 }
 function nextF(){
   autoTok++;
-  if(st.fi+1<st.fs.length){ st.fi++; setupF(); renderF(); window.scrollTo({top:0,behavior:"auto"}); }
+  if(st.fi+1<st.fs.length){ st.fi++; setupF(); renderF(); toBoard(); }
   else { $("fFb").hidden=true; finish(); }
 }
 
@@ -2939,7 +3027,7 @@ $("oCheck").addEventListener("click",checkO); $("oNext").addEventListener("click
 $("left").addEventListener("click",onCard); $("right").addEventListener("click",onCard);
 $("opts").addEventListener("click",onOpt); $("qNext").addEventListener("click",nextQ);
 $("revAgain").addEventListener("click",startReview);
-$("next").addEventListener("click",()=>{autoTok++; if(st.review){st.review=false;st.round=0;updateRev()} st.round++;NEW[st.game]();window.scrollTo({top:0,behavior:"auto"})});
+$("next").addEventListener("click",()=>{autoTok++; if(st.review){st.review=false;st.round=0;updateRev()} st.round++;NEW[st.game]();toBoard()});
 $("retry").addEventListener("click",()=>NEW[st.game](CUR()));
 
 /* ---------- Mistake bank (local + per-viewer private db doc) ---------- */
@@ -2977,7 +3065,7 @@ function reviewList(g){
 }
 function startReview(){
   const list=reviewList(bankKey()); if(!list.length)return;
-  st.review=true; st.round=1; NEW[st.game](list); updateRev(); window.scrollTo({top:0,behavior:"auto"});
+  st.review=true; st.round=1; NEW[st.game](list); updateRev(); toBoard();
 }
 let clearArmed=null;
 function updateRev(){
@@ -3013,6 +3101,7 @@ $("revClear").addEventListener("click",()=>{
   }catch(e){}
 })();
 
+try{const m=$("more");if(localStorage.getItem("hsk1more")==="1")m.open=true;m.addEventListener("toggle",()=>{try{localStorage.setItem("hsk1more",m.open?"1":"0")}catch(e){}})}catch(e){}
 $("vRate").value=st.rateMul; $("vRateVal").textContent=st.rateMul.toFixed(1)+"x";
 setGame(st.game);
 </script>
