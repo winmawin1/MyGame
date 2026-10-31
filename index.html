@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif:wght@500;600&family=Noto+Serif+SC:wght@500;700&family=Noto+Serif+JP:wght@500;700&family=Noto+Serif+KR:wght@500;700&family=Noto+Serif+TC:wght@500;700&display=swap">
-<meta name="theme-color" content="#F8F4EA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0E0E10" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F5F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E0E0E" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -358,97 +358,133 @@ body{overscroll-behavior-y:none}
   @keyframes fade{from{opacity:0}}
 }
 
-/* ===== Apple-style layer: system type, segmented controls, grouped surfaces, translucent sticky tabs ===== */
+/* ===== Flat layer: soft grey surfaces, no shadows, big radii, pastel tiles, black pills ===== */
 :root{
   --chop-zh:#2F6FB3; --chop-ja:#D9475B; --chop-ko:#4E8A4C; --chop-yue:#E89A2C;
-  --paper:#F8F4EA; --card:#FFFFFF; --ink:#1C1C1E; --muted:#6E6E73; --line:rgba(60,60,67,.13);
-  --fill:rgba(118,118,128,.12); --tint:#2F6FB3; --tint-tint:rgba(47,111,179,.10);
-  --jade:#2E8540; --jade-tint:#E6F4E8; --seal:#D9475B; --seal-tint:#FCEAEC; --grid:rgba(217,71,91,.07);
-  --shadow:0 1px 2px rgba(0,0,0,.04),0 1px 8px rgba(0,0,0,.04);
-  --thumb:0 1px 1px rgba(0,0,0,.04),0 3px 8px rgba(0,0,0,.12);
-  --f-body:-apple-system,BlinkMacSystemFont,"IBM Plex Sans Thai","Sukhumvit Set","Leelawadee UI",system-ui,sans-serif;
+  --paper:#F5F5F3; --panel:#EBEBE8; --card:#FFFFFF; --ink:#141414; --muted:#86867F; --line:rgba(0,0,0,.07);
+  --fill:#E4E4E0; --tint:#141414; --sel:#F4E3B0; --thumb:#FFFFFF;
+  --p1:#F3E4B5; --p2:#CFE4EC; --p3:#F6D8DB; --p4:#D8EAD2;
+  --jade:#2F8F57; --jade-tint:#D8EAD2; --seal:#D9475B; --seal-tint:#F6D8DB; --grid:transparent;
+  --f-body:-apple-system,BlinkMacSystemFont,"Inter","IBM Plex Sans Thai","Sukhumvit Set","Leelawadee UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --chop-zh:#4A8AD0; --chop-ja:#E35D70; --chop-ko:#5FA25C; --chop-yue:#F0A93E;
-  --paper:#0E0E10; --card:#1C1C1E; --ink:#F2F2F7; --muted:#98989F; --line:rgba(84,84,88,.55);
-  --fill:rgba(118,118,128,.24); --tint:#5A9BE0; --tint-tint:rgba(90,155,224,.16);
-  --jade:#4CC26A; --jade-tint:rgba(76,194,106,.15); --seal:#FF6B7D; --seal-tint:rgba(255,107,125,.15); --grid:rgba(255,107,125,.06);
-  --shadow:0 0 0 .5px rgba(255,255,255,.06); --thumb:0 0 0 .5px rgba(255,255,255,.08),0 3px 8px rgba(0,0,0,.4); }}
+  --paper:#0E0E0E; --panel:#1A1A1A; --card:#262626; --ink:#F2F2F0; --muted:#8E8E88; --line:rgba(255,255,255,.07);
+  --fill:#2C2C2C; --tint:#F2F2F0; --sel:#4D4428; --thumb:#454545;
+  --p1:#4A4128; --p2:#22404A; --p3:#4A2A2F; --p4:#2B4230;
+  --jade:#6FD08F; --jade-tint:#2B4230; --seal:#FF7B8A; --seal-tint:#4A2A2F; --grid:transparent; }}
 :root[data-theme="dark"]{
   --chop-zh:#4A8AD0; --chop-ja:#E35D70; --chop-ko:#5FA25C; --chop-yue:#F0A93E;
-  --paper:#0E0E10; --card:#1C1C1E; --ink:#F2F2F7; --muted:#98989F; --line:rgba(84,84,88,.55);
-  --fill:rgba(118,118,128,.24); --tint:#5A9BE0; --tint-tint:rgba(90,155,224,.16);
-  --jade:#4CC26A; --jade-tint:rgba(76,194,106,.15); --seal:#FF6B7D; --seal-tint:rgba(255,107,125,.15); --grid:rgba(255,107,125,.06);
-  --shadow:0 0 0 .5px rgba(255,255,255,.06); --thumb:0 0 0 .5px rgba(255,255,255,.08),0 3px 8px rgba(0,0,0,.4); }
+  --paper:#0E0E0E; --panel:#1A1A1A; --card:#262626; --ink:#F2F2F0; --muted:#8E8E88; --line:rgba(255,255,255,.07);
+  --fill:#2C2C2C; --tint:#F2F2F0; --sel:#4D4428; --thumb:#454545;
+  --p1:#4A4128; --p2:#22404A; --p3:#4A2A2F; --p4:#2B4230;
+  --jade:#6FD08F; --jade-tint:#2B4230; --seal:#FF7B8A; --seal-tint:#4A2A2F; --grid:transparent; }
 
-body{font-family:var(--f-body);-webkit-font-smoothing:antialiased;letter-spacing:-.003em}
-h1{font-size:1.7rem;font-weight:700;letter-spacing:-.02em}
-.sub{font-size:.88rem}
-.chop{border-radius:12px;transform:rotate(-5deg);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+body{font-family:var(--f-body);-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+*{box-shadow:none}
+h1{font-size:1.9rem;font-weight:600;letter-spacing:-.035em;line-height:1.1}
+.sub{font-size:.86rem;margin-top:4px}
+.chop{border-radius:14px;transform:rotate(-6deg)}
 .chop[data-lang="yue"]{color:#fff}
+.learned{font-size:.78rem}
 
-/* Segmented controls: grey track, raised white thumb */
-.tabs,.langsw{background:var(--fill);border:0;border-radius:10px;padding:2px;gap:2px}
-.tab,.lbtn{border-radius:8px;color:var(--ink);font-weight:500}
-.tab[aria-selected="true"],.lbtn[aria-pressed="true"]{background:var(--card);color:var(--ink);font-weight:600;box-shadow:var(--thumb)}
-.lbtn{padding:5px 11px 5px 7px}
-
-/* Sticky translucent tab bar */
+/* Segmented controls: flat grey track, white thumb, no shadow */
+.tabs,.langsw{background:var(--fill);border:0;border-radius:18px;padding:4px;gap:4px}
+.langsw{border-radius:999px}
+.tab,.lbtn{border-radius:14px;color:var(--muted);font-weight:500}
+.lbtn{border-radius:999px;color:var(--ink)}
+.tab[aria-selected="true"],.lbtn[aria-pressed="true"]{background:var(--thumb);color:var(--ink);font-weight:600}
 .tabs{position:sticky;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:20;
-  background:color-mix(in srgb,var(--paper) 70%,transparent);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
-  box-shadow:inset 0 0 0 .5px var(--line)}
-.tabs::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--fill);z-index:-1}
+  background:color-mix(in srgb,var(--fill) 82%,transparent);
+  -webkit-backdrop-filter:saturate(160%) blur(18px);backdrop-filter:saturate(160%) blur(18px)}
 
-/* Filter chips: tinted fill, selected = solid tint */
-.chip{background:var(--fill);border-color:transparent;color:var(--ink);font-weight:500}
-.chip[aria-pressed="true"]{background:var(--tint);border-color:var(--tint);color:#fff}
-.chip.rev{background:var(--seal-tint);border-color:transparent;color:var(--seal)}
-@media (hover:hover) and (pointer:fine){ .chip:hover{border-color:transparent;filter:brightness(.97)} }
-.vsel{background:var(--fill);border-color:transparent}
-.vrate input{accent-color:var(--tint)}
+/* Stats as pastel tiles with big numbers */
+.stats{border:0;background:transparent;gap:8px;overflow:visible}
+.stat{border:0;border-radius:20px;padding:10px 12px 12px;gap:0}
+.stat:nth-child(1){background:var(--p1)} .stat:nth-child(2){background:var(--p2)}
+.stat:nth-child(3){background:var(--p3)} .stat:nth-child(4){background:var(--p4)}
+.stat b{font-size:1.65rem;font-weight:500;letter-spacing:-.04em;line-height:1.15;order:2}
+.stat span{order:1;font-size:.72rem;color:color-mix(in srgb,var(--ink) 60%,transparent)}
+.stat.hot b{color:var(--ink)}
 
-/* Grouped surfaces */
-.stats,.board,.result,.more{border:0;box-shadow:var(--shadow);background-color:var(--card)}
-.stats{border-radius:14px}
-.stat{border-left:.5px solid var(--line)}
-.stat b{font-weight:700;letter-spacing:-.01em}
-.board,.result{border-radius:20px}
-.more{border-radius:14px}
-.more summary{border-radius:14px;min-height:44px}
-.morebody{border-top:.5px solid var(--line)}
+/* Chips: flat grey pills, selected = black pill */
+.chip{background:var(--fill);border-color:transparent;color:var(--ink);font-weight:500;border-radius:999px}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip.rev{background:var(--seal-tint);border-color:transparent;color:var(--ink)}
+@media (hover:hover) and (pointer:fine){ .chip:hover{border-color:transparent;filter:brightness(.96)} .chip[aria-pressed="true"]:hover{filter:none} }
+.vsel{background:var(--fill);border-color:transparent;border-radius:999px}
+.vrate input{accent-color:var(--ink)}
 
-/* Cards */
-.card{border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.card.sel,.fslot.sel,.tok.sel{border-color:var(--tint);background:var(--tint-tint);box-shadow:0 0 0 1px var(--tint)}
+/* Panels: soft grey, big radius, no borders */
+.board,.result,.more{border:0;background:var(--panel);background-image:none}
+.board,.result{border-radius:28px;padding:16px}
+.more{border-radius:22px}
+.more summary{border-radius:22px;min-height:48px;padding:12px 16px}
+.morebody{border-top:1px solid var(--line)}
+.colhead span{text-transform:none;letter-spacing:0;font-size:.78rem}
+.qmeta{letter-spacing:0}
+
+/* Cards: white, borderless, large radius */
+.card{border:0;border-radius:20px;background:var(--card);padding:12px 14px}
+.card.sel,.fslot.sel,.tok.sel{background:var(--sel);border-color:transparent}
 .card.sel{transform:none}
-.card.done{border-style:solid;opacity:.42;box-shadow:none}
-.card.right{box-shadow:0 0 0 1px var(--jade)}
-.card.wrong,.card.bad{box-shadow:0 0 0 1px var(--seal)}
-.tok{border-radius:10px;border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.fslot{border-width:1px}
-.bub{border-radius:18px}
-.bub.b{background:var(--tint);border-color:var(--tint);color:#fff}
-.bub.b .who,.bub.b .bp,.bub.b .bt{color:rgba(255,255,255,.82)}
-.bub.b.miss{background:var(--seal-tint);border-color:var(--seal);color:var(--ink)}
-.bub.b.miss .who,.bub.b.miss .bp,.bub.b.miss .bt{color:var(--muted)}
+.card.done{opacity:.4;border:0}
+.card.right{background:var(--jade-tint)}
+.card.wrong,.card.bad,.fslot.bad,.tok.bad{background:var(--seal-tint);border-color:transparent}
+.pin{font-weight:500;letter-spacing:-.01em}
+.th{font-weight:600}
+.seal{border-radius:8px}
+.tok{border:0;border-radius:14px;background:var(--card)}
+.tray{border-bottom:2px solid var(--ink)}
+.tray .tok{background:var(--card);outline:1.5px solid var(--ink);outline-offset:-1.5px}
+.tray.ok .tok{background:var(--jade-tint);outline-color:var(--jade)}
+.tray.no .tok{background:var(--seal-tint);outline-color:var(--seal)}
+.fslot{border-width:1.5px;background:var(--card)}
+.fslot.done{background:var(--jade-tint);border-color:transparent}
+.froot{background:var(--card);border:0}
+.fplus{background:transparent}
 
-/* Buttons: filled tint, 44pt tall */
-.btn{background:var(--tint);border:0;color:#fff;border-radius:12px;min-height:44px;padding:11px 20px;font-weight:600}
-.btn.ghost{background:var(--fill);color:var(--tint)}
-.playbtn{background:var(--tint);color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--tint) 35%,transparent)}
+/* Chat bubbles */
+.bub{border:0;border-radius:22px;background:var(--card)}
+.bub.b{background:var(--p2);color:var(--ink)}
+.bub.b .who,.bub.b .bp,.bub.b .bt{color:color-mix(in srgb,var(--ink) 60%,transparent)}
+.bub.b.miss{background:var(--seal-tint)}
+.bub.b.draft,.bub.draft{background:transparent;border:1.5px dashed var(--muted)}
+.ctitle{border:0;background:var(--fill)}
+
+/* Buttons: black pill primary, white pill secondary */
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:999px;min-height:48px;padding:12px 22px;font-weight:600}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.playbtn{background:var(--ink);color:var(--paper)}
+
+/* Result */
+.result h2{font-size:1.6rem;font-weight:600;letter-spacing:-.03em}
+.review{border-top:1px solid var(--line)}
+.review div{border-bottom:1px solid var(--line)}
 
 /* Progress */
-.bar{height:5px;border-radius:3px;background:var(--fill)}
-.bar i{border-radius:3px;background:var(--tint);transition:width 300ms cubic-bezier(.23,1,.32,1)}
-
-.blank{border-bottom-color:var(--tint)}
+.bar{height:6px;border-radius:999px;background:var(--fill)}
+.bar i{border-radius:999px;background:var(--ink);transition:width 300ms cubic-bezier(.23,1,.32,1)}
+.blank{border-bottom-color:var(--ink)}
 .lbl,.row .lbl{font-weight:500}
-.hint{font-size:.78rem}
-@media (max-width:520px){ h1{font-size:1.4rem} .chop{width:46px;height:46px} }
-.bub.b.draft{background:transparent;border-color:var(--muted);color:var(--ink)}
-.bub.b.draft .who,.bub.b.draft .bp,.bub.b.draft .bt{color:var(--muted)}
-:focus-visible{outline-color:var(--tint)!important}
+.hint{font-size:.76rem}
+
+@media (max-width:520px){
+  h1{font-size:1.55rem}
+  .chop{width:46px;height:46px}
+  .stats{gap:6px}
+  .stat{padding:8px 10px 10px;border-radius:16px}
+  .stat b{font-size:1.35rem}
+  .board,.result{border-radius:24px;padding:12px}
+  .card{border-radius:16px;padding:10px 11px}
+}
+:focus-visible{outline-color:var(--ink)!important}
+.card,.card.sel,.card.right,.card.wrong,.card.bad,.fslot.sel,.tok.sel,.playbtn{box-shadow:none}
+@media (hover:none),(pointer:coarse){
+  .chip:hover,.chip[aria-pressed="true"]:hover{border-color:transparent}
+  .chip.rev:hover{background:var(--seal-tint);border-color:transparent}
+  .lbtn[aria-pressed="true"]:hover{background:var(--thumb)}
+}
 </style>
 
 <div class="wrap">
